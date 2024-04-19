@@ -1,16 +1,14 @@
 import { Box } from '@chakra-ui/react';
-import './App.css'
-import Header from './components/Header';
-import PlacesList from './components/PlacesList';
+import './App.css';
+import Router from './Router.jsx';
 
 function App() {
 
 	return (
-		<Box>
-			<Header />
-			<PlacesList />
-		</Box>
-	)
+        <>
+            <Router />
+        </>
+    )
 }
 
 export default App;
