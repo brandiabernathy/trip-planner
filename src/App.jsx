@@ -1,19 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Box } from '@chakra-ui/react';
 import './App.css'
 import Header from './components/Header';
 import PlacesList from './components/PlacesList';
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <Header />
-      <PlacesList />
-    </>
-  )
+	return (
+		<Box>
+			<Header />
+			<PlacesList />
+		</Box>
+	)
 }
 
-export default App
+export default App;

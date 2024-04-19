@@ -1,11 +1,12 @@
+import { Heading } from '@chakra-ui/react';
 
 function Header() {
 
-  return (
-    <>
-      <h1>Trip Planner</h1>
-    </>
-  )
+	return (
+		<>
+			<Heading as="h1" mb={4}>Trip Planner</Heading>
+		</>
+	)
 }
 
-export default Header
+export default Header;

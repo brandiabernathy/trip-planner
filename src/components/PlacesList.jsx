@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PlaceCard from './PlaceCard';
-import { Flex, SimpleGrid } from "@chakra-ui/react"
+import { SimpleGrid } from "@chakra-ui/react"
 import { db } from '../utils/firebase/config';
 import { getDocs, collection } from "firebase/firestore";
 
