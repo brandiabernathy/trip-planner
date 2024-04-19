@@ -1,8 +1,9 @@
-import { Suspense, lazy, useState, useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Flex, Spinner } from '@chakra-ui/react';
 
 const Index = lazy(() => import('./pages/Index'));
+const Place = lazy(() => import('./pages/Place'));
 
 export default function Router() {
 
@@ -14,6 +15,7 @@ export default function Router() {
         }>
             <Routes>
                 <Route exact path="/" end element={<Index />} />
+                <Route path="/place/:shortCode" element={<Place />} />
             </Routes>
         </Suspense>
       );

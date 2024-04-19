@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import PlaceCard from './PlaceCard';
-import { SimpleGrid } from "@chakra-ui/react"
+import { SimpleGrid, Link } from "@chakra-ui/react"
 import { db } from '../utils/firebase/config';
 import { getDocs, collection } from "firebase/firestore";
 
 function PlacesList() {
-    const [places, setPlaces] = useState([]);
+    const [ places, setPlaces ] = useState([]);
 
 
     const fetchPlaces = async () => {
@@ -27,7 +27,7 @@ function PlacesList() {
     }, []);
 
     let list = places.map(place=> {
-		return <PlaceCard key={place.id} place={place} />
+		return <Link key={place.id} href={"/place/" + place.shortCode}><PlaceCard place={place} /></Link>
 	});
 
     return (
