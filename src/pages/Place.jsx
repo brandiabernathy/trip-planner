@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box } from '@chakra-ui/react';
+import { Box, Image, AspectRatio, Text, Heading, Link } from '@chakra-ui/react';
 import { db } from '../utils/firebase/config';
 import { getDocs, collection, query, where } from "firebase/firestore";
 
@@ -28,12 +28,35 @@ function Place() {
 
     useEffect(() => {
         fetchPlace();
-      }, [shortCode]);
+    }, [shortCode]);
 
 	return (
-		<Box>
+		<Box className="place-page">
 			<Header />
-            <div>{place.name}</div>
+            <AspectRatio ratio={16 / 6} className="hero-img">
+                <Box>
+                    <Box className="overlay"></Box>
+                    <Image
+                        src={place.image}
+                        alt={place.name}
+                    />
+                    <Heading as="h2" className="container heading">{place.name}</Heading>
+                </Box>
+            </AspectRatio>
+            <Box className="container">
+                <Heading as="h3">Things To Do</Heading>
+                { place.hasOwnProperty('toDo') && place.toDo.map(item => {
+                    return (
+                        <Box key={item.shortCode}>
+                            { item.link ?
+                                <Link href={item.link} target="_blank">{item.description}</Link>
+                            :
+                                <Text>{item.description}</Text>
+                            }
+                        </Box>
+                    )
+                })}
+            </Box>
 		</Box>
 	)
 }

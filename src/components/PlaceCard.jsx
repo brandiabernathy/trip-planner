@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
 	Card,
 	CardBody,
@@ -12,9 +13,12 @@ import {
 function PlaceCard({ place }) {
 
 	console.log('placeeee', place);
-	let tags = place.tags.map(tag => {
-		return <Tag key={tag}>{ tag }</Tag>
-	});
+	let tags;
+	if(place.hasOwnProperty('tags')) {
+		tags = place.tags.map(tag => {
+			return <Tag key={tag}>{ tag }</Tag>
+		});
+	}
 
 	return (
 		<Card>
@@ -30,7 +34,7 @@ function PlaceCard({ place }) {
 				<Stack m="4" spacing="3">
 					<Heading size="md">{place.name}</Heading>
 					<Box m={-1}>
-						{tags}
+						{tags && tags}
 					</Box>
 				</Stack>
 			</CardBody>
