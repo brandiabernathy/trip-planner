@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { db } from '../utils/firebase/config';
 import { addDoc, collection } from "firebase/firestore";
+import TagInput from './TagInput';
 
 function Header() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,18 +28,22 @@ function Header() {
 		const str = newPlace.name.split(',');
 		const shortCode = str[0].replace(/\s+/g, '-').toLowerCase();
 
-		setNewPlace({
-			...newPlace,
-			shortCode: shortCode,
-		})
 		try {
 			await addDoc(collection(db, "places"), {
-				...newPlace
+				...newPlace,
+				shortCode: shortCode
 		  	});
 		}
 		catch(err) {
 			console.error(err);
 		}
+	}
+
+	const setTags = (tags) => {
+		setNewPlace({
+			...newPlace,
+			tags: tags
+		})
 	}
 
 	return (
@@ -62,6 +67,10 @@ function Header() {
 							<FormControl>
 								<FormLabel>Image URL</FormLabel>
 								<Input type="text" onChange={(e) => setNewPlace({...newPlace, image: e.target.value})}/>
+							</FormControl>
+							<FormControl>
+								<FormLabel>Tags</FormLabel>
+								<TagInput onTagsChange={setTags}/>
 							</FormControl>
 						</Stack>
 					</ModalBody>
