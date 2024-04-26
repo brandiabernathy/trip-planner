@@ -8,45 +8,56 @@ import {
 	ModalFooter,
 	ModalBody,
 	ModalCloseButton,
-	useDisclosure,
 	FormControl,
 	FormLabel,
 	Input,
 	Stack,
 } from '@chakra-ui/react';
 import { db } from '../utils/firebase/config';
-import { addDoc, collection } from "firebase/firestore";
+import { doc, addDoc, updateDoc, collection } from "firebase/firestore";
 import TagInput from './TagInput';
 
-function PlaceForm({ isOpen, onClose, isEdit, place }) {
-	const [ newPlace, setNewPlace ] = useState({});
+function PlaceForm({ isOpen, onClose, isEdit, placeToEdit }) {
+	const [ place, setPlace ] = useState(placeToEdit? placeToEdit : {});
 
-	const submitNewPlace = async () => {
-		console.log("new place", newPlace);
-		const str = newPlace.name.split(',');
-		const shortCode = str[0].replace(/\s+/g, '-').toLowerCase();
-
-		try {
-			await addDoc(collection(db, "places"), {
-				...newPlace,
-				shortCode: shortCode
-		  	});
-
-            onClose();
+	const submit = async () => {
+		if(place.hasOwnProperty('id')) {
+			const placeRef = doc(db, "places", place.id);
+			// update existing place
+			try {
+				await updateDoc(placeRef, {
+					...place
+				});
+			}
+			catch(err) {
+				console.error(err);
+			}
 		}
-		catch(err) {
-			console.error(err);
+		else {
+			// add new place
+			const str = place.name.split(',');
+			const shortCode = str[0].replace(/\s+/g, '-').toLowerCase();
+
+			try {
+				await addDoc(collection(db, "places"), {
+					...place,
+					shortCode: shortCode
+				});
+
+			}
+			catch(err) {
+				console.error(err);
+			}
 		}
+		onClose();
 	}
 
 	const setTags = (tags) => {
-		setNewPlace({
-			...newPlace,
+		setPlace({
+			...place,
 			tags: tags
 		})
 	}
-
-    console.log("place!", place);
 
 	return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -58,22 +69,22 @@ function PlaceForm({ isOpen, onClose, isEdit, place }) {
                     <Stack spacing={6}>
                         <FormControl>
                             <FormLabel>Name</FormLabel>
-                            <Input type="text" onChange={(e) => setNewPlace({...newPlace, name: e.target.value})}/>
+                            <Input type="text" value={place.name || '' } onChange={(e) => setPlace({...place, name: e.target.value})}/>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Image URL</FormLabel>
-                            <Input type="text" onChange={(e) => setNewPlace({...newPlace, image: e.target.value})}/>
+                            <Input type="text" value={place.image || ''} onChange={(e) => setPlace({...place, image: e.target.value})}/>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Tags</FormLabel>
-                            <TagInput onTagsChange={setTags}/>
+                            <TagInput onTagsChange={setTags} presentTags={place.tags || ''}/>
                         </FormControl>
                     </Stack>
                 </ModalBody>
 
                 <ModalFooter>
                     <Button mr={3} onClick={onClose}>Cancel</Button>
-                    <Button onClick={submitNewPlace}>{ isEdit ? 'Edit' : 'Add' }</Button>
+                    <Button onClick={submit}>{ isEdit ? 'Save' : 'Add' }</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>

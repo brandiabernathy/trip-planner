@@ -16,7 +16,7 @@ function Header() {
 				<Button onClick={onOpen}>Add New Place</Button>
 			</header>
 
-			<PlaceForm isOpen={isOpen} onClose={onClose} isEdit={false}/>
+			{ isOpen && <PlaceForm isOpen={isOpen} onClose={onClose} isEdit={false}/> }
 		</>
 	)
 }

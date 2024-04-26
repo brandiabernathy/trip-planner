@@ -7,9 +7,9 @@ import {
     Input,
 } from '@chakra-ui/react';
 
-function TagInput({ onTagsChange }) {
+function TagInput({ onTagsChange, presentTags }) {
     const [ input, setInput ] = useState('');
-    const [ tags, setTags ] = useState([]);
+    const [ tags, setTags ] = useState(presentTags ? presentTags : []);
 
     const addTag = tag => {
         setTags([

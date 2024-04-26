@@ -66,7 +66,7 @@ function PlaceCard({ place }) {
 				</CardBody>
 			</Card>
 
-			<PlaceForm isOpen={isOpen} onClose={onClose} isEdit={true} place={place}/>
+			{ isOpen && <PlaceForm isOpen={isOpen} onClose={onClose} isEdit={true} placeToEdit={place}/> }
 		</>
 	)
 }
