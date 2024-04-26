@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import {
 	Heading,
 	Button,
 	useDisclosure,
+	Link,
 } from '@chakra-ui/react';
 import PlaceForm from './PlaceForm';
 
@@ -12,7 +12,9 @@ function Header() {
 	return (
 		<>
 			<header className="container header">
-				<Heading as="h1">Trip Planner</Heading>
+				<Link href='/'>
+					<Heading as="h1">Trip Planner</Heading>
+				</Link>
 				<Button onClick={onOpen}>Add New Place</Button>
 			</header>
 
