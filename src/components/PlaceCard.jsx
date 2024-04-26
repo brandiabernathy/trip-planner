@@ -8,9 +8,15 @@ import {
 	Tag,
 	Box,
 	AspectRatio,
+	Icon,
+	useDisclosure,
 } from '@chakra-ui/react';
 
+import { FiEdit2 } from "react-icons/fi";
+import PlaceForm from './PlaceForm';
+
 function PlaceCard({ place }) {
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	console.log('placeeee', place);
 	let tags;
@@ -20,25 +26,48 @@ function PlaceCard({ place }) {
 		});
 	}
 
+	const editPlace = e => {
+		e.preventDefault();
+		onOpen();
+	}
+
 	return (
-		<Card>
-			<CardBody>
-				<AspectRatio ratio={4 / 3}>
-					<Image
-						src={place.image}
-						alt={place.name}
-						borderTopLeftRadius="lg"
-						borderTopRightRadius="lg"
+		<>
+			<Card role="group">
+				<CardBody>
+					<Icon
+						as={FiEdit2}
+						onClick={editPlace}
+						position="absolute"
+						zIndex="1"
+						right={2}
+						top={2}
+						color="white"
+						boxSize={5}
+						display="none"
+						_groupHover={{
+							display: "block"
+					}}
 					/>
-				</AspectRatio>
-				<Stack m="4" spacing="3">
-					<Heading size="md">{place.name}</Heading>
-					<Box m={-1}>
-						{tags && tags}
-					</Box>
-				</Stack>
-			</CardBody>
-		</Card>
+					<AspectRatio ratio={4 / 3}>
+						<Image
+							src={place.image}
+							alt={place.name}
+							borderTopLeftRadius="lg"
+							borderTopRightRadius="lg"
+						/>
+					</AspectRatio>
+					<Stack m="4" spacing="3">
+						<Heading size="md">{place.name}</Heading>
+						<Box m={-1}>
+							{tags && tags}
+						</Box>
+					</Stack>
+				</CardBody>
+			</Card>
+
+			<PlaceForm isOpen={isOpen} onClose={onClose} isEdit={true} place={place}/>
+		</>
 	)
 }
 export default PlaceCard;
