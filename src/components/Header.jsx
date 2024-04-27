@@ -13,7 +13,7 @@ function Header() {
 		<>
 			<header className="container header">
 				<Link href='/'>
-					<Heading as="h1">Trip Planner</Heading>
+					<Heading as="h1">Abernathy Trip Planner</Heading>
 				</Link>
 				<Button onClick={onOpen}>Add New Place</Button>
 			</header>

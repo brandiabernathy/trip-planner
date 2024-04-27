@@ -10,6 +10,7 @@ import {
     useDisclosure,
     Icon,
     Flex,
+    Stack,
 } from '@chakra-ui/react';
 import { db } from '../utils/firebase/config';
 import { getDocs, collection, query, where } from "firebase/firestore";
@@ -63,8 +64,8 @@ function Place() {
                         <Heading as="h2" className="container heading">{place.name}</Heading>
                     </Box>
                 </AspectRatio>
-                <Box className="container">
-                    <Flex role="group" alignItems="center">
+                <Box className="container" my={10}>
+                    <Flex role="group" alignItems="center"  mb={4}>
                         <Heading as="h3">Things To Do</Heading>
                         <Icon
                             as={FiPlusSquare}
@@ -78,26 +79,30 @@ function Place() {
                             }}
                         />
                     </Flex>
-                    { place.hasOwnProperty('toDo') && place.toDo.map(item => {
-                        return (
-                            <Flex key={item.shortCode} role="group">
-                                { item.link ?
-                                    <Link href={item.link} target="_blank">{item.description}</Link>
-                                :
-                                    <Text>{item.description}</Text>
-                                }
-                                <Icon
-                                    as={FiTrash2}
-                                    display="none"
-                                    cursor="pointer"
-                                    ml={2}
-                                    _groupHover={{
-                                        display: "block"
-                                    }}
-                                />
-                            </Flex>
-                        )
-                    })}
+                    { place.hasOwnProperty('toDo') && 
+                        <Stack>
+                            { place.toDo.map(item => {
+                                return (
+                                    <Flex key={item.shortCode} role="group" alignItems="center">
+                                        { item.link ?
+                                            <Link href={item.link} target="_blank">{item.description}</Link>
+                                        :
+                                            <Text>{item.description}</Text>
+                                        }
+                                        <Icon
+                                            as={FiTrash2}
+                                            display="none"
+                                            cursor="pointer"
+                                            ml={2}
+                                            _groupHover={{
+                                                display: "block"
+                                            }}
+                                        />
+                                    </Flex>
+                                )
+                            })}
+                        </Stack>
+                    }
                 </Box>
             </Box>
             { isOpen && <ToDoForm isOpen={isOpen} onClose={onClose} placeToEdit={place}/> }
