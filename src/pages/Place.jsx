@@ -13,7 +13,7 @@ import {
     Stack,
 } from '@chakra-ui/react';
 import { db } from '../utils/firebase/config';
-import { getDocs, collection, query, where } from "firebase/firestore";
+import { getDocs, collection, query, where, doc, updateDoc } from "firebase/firestore";
 import { FiPlusSquare, FiTrash2 } from "react-icons/fi";
 
 import Header from '../components/Header';
@@ -44,6 +44,18 @@ function Place() {
 			console.error(err);
 		}
     };
+
+    const deleteToDo = async(description) => {
+        const placeRef = doc(db, "places", place.id);
+        try {
+            await updateDoc(placeRef, {
+                toDo: place.toDo.filter(place => place.description != description)
+            });
+        }
+        catch(err) {
+            console.error(err);
+        }
+    }
 
 
     useEffect(() => {
@@ -79,7 +91,7 @@ function Place() {
                             }}
                         />
                     </Flex>
-                    { place.hasOwnProperty('toDo') && 
+                    { place.hasOwnProperty('toDo') && place.toDo.length ?
                         <Stack>
                             { place.toDo.map(item => {
                                 return (
@@ -91,6 +103,7 @@ function Place() {
                                         }
                                         <Icon
                                             as={FiTrash2}
+                                            onClick={() => deleteToDo(item.description)}
                                             display="none"
                                             cursor="pointer"
                                             ml={2}
@@ -102,6 +115,8 @@ function Place() {
                                 )
                             })}
                         </Stack>
+                    :
+                        <Text>No ideas as of yet</Text>
                     }
                 </Box>
             </Box>
