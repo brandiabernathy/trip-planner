@@ -3,8 +3,10 @@ import {
 	Button,
 	useDisclosure,
 	Link,
+	Image,
 } from '@chakra-ui/react';
 import PlaceForm from './PlaceForm';
+import logo from '/atp-logo.svg';
 
 function Header() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -12,7 +14,8 @@ function Header() {
 	return (
 		<>
 			<header className="container header">
-				<Link href='/'>
+				<Link href="/" display="flex" alignItems="center">
+					<Image src={logo} boxSize="45px" mr={2}/>
 					<Heading as="h1">Abernathy Trip Planner</Heading>
 				</Link>
 				<Button onClick={onOpen}>Add New Place</Button>
