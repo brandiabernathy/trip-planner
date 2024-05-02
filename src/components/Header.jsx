@@ -8,8 +8,13 @@ import {
 import PlaceForm from './PlaceForm';
 import logo from '/atp-logo.svg';
 
-function Header() {
+function Header({ refreshPlaces }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const placeAdded = () => {
+		onClose();
+		refreshPlaces();
+	}
 
 	return (
 		<>
@@ -21,7 +26,7 @@ function Header() {
 				<Button onClick={onOpen}>Add New Place</Button>
 			</header>
 
-			{ isOpen && <PlaceForm isOpen={isOpen} onClose={onClose} isEdit={false}/> }
+			{ isOpen && <PlaceForm isOpen={isOpen} onClose={placeAdded} isEdit={false}/> }
 		</>
 	)
 }

@@ -83,7 +83,7 @@ function PlaceForm({ isOpen, onClose, isEdit, placeToEdit }) {
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button mr={3} onClick={onClose}>Cancel</Button>
+                    <Button variant="secondary" mr={3} onClick={onClose}>Cancel</Button>
                     <Button onClick={submit}>{ isEdit ? 'Save' : 'Add' }</Button>
                 </ModalFooter>
             </ModalContent>

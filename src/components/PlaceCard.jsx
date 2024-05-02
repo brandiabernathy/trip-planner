@@ -33,7 +33,7 @@ function PlaceCard({ place }) {
 
 	return (
 		<>
-			<Card role="group">
+			<Card role="group" height="100%">
 				<CardBody>
 					<Icon
 						as={FiEdit2}

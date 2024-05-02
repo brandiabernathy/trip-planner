@@ -55,7 +55,7 @@ function ToDoForm({ isOpen, onClose, placeToEdit }) {
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button mr={3} onClick={onClose}>Cancel</Button>
+                    <Button variant="secondary" mr={3} onClick={onClose}>Cancel</Button>
                     <Button onClick={submit}>Save</Button>
                 </ModalFooter>
             </ModalContent>

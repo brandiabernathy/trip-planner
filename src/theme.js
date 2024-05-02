@@ -46,6 +46,9 @@ export const theme = extendTheme({
             }
         },
         Button: {
+            baseStyle: {
+                fontWeight: 'normal'
+            },
             defaultProps: {
                 variant: 'primary',
             },
@@ -53,17 +56,14 @@ export const theme = extendTheme({
                 primary: {
                     bgColor: 'brand.primary',
                     color: 'white',
-                    fontSize: 'normal',
                     _hover: {
                         bgColor: 'brand.primaryDark',
-                        _disabled: {
-                            bgColor: 'brand.primary',
-                        }
                     },
-                    _disabled: {
-                        opacity: 0.5,
-                    }
                 },
+                secondary: {
+                    bgColor: 'transparent',
+                    color: 'var(--chakra-colors-chakra-body-text',
+                }
             }
         },
     }
