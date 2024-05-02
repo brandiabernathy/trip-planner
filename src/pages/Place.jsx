@@ -37,7 +37,6 @@ function Place() {
                     ...doc.data(),
                     id: doc.id
                 });
-                console.log("doc", doc.data());
             });
 		}
 		catch(err) {
@@ -91,7 +90,7 @@ function Place() {
                             }}
                         />
                     </Flex>
-                    { place.hasOwnProperty('toDo') && place.toDo.length ?
+                    { place.toDo && place.toDo.length ?
                         <Stack>
                             { place.toDo.map(item => {
                                 return (

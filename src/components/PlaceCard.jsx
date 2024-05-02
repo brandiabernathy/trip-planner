@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
 	Card,
 	CardBody,
@@ -18,9 +17,8 @@ import PlaceForm from './PlaceForm';
 function PlaceCard({ place }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	console.log('placeeee', place);
 	let tags;
-	if(place.hasOwnProperty('tags')) {
+	if(place.tags.length) {
 		tags = place.tags.map(tag => {
 			return <Tag key={tag}>{ tag }</Tag>
 		});

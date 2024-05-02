@@ -21,7 +21,7 @@ function PlaceForm({ isOpen, onClose, isEdit, placeToEdit }) {
 	const [ place, setPlace ] = useState(placeToEdit? placeToEdit : {});
 
 	const submit = async () => {
-		if(place.hasOwnProperty('id')) {
+		if(place.id) {
 			const placeRef = doc(db, "places", place.id);
 			// update existing place
 			try {
