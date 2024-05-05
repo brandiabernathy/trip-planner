@@ -22,12 +22,21 @@ function ToDoForm({ isOpen, onClose, placeToEdit }) {
 	const submit = async () => {
         const placeRef = doc(db, "places", placeToEdit.id);
         try {
-            await updateDoc(placeRef, {
-                toDo: [
-                    ...placeToEdit.toDo,
-                    {...newToDo}
-                ]
-            });
+            if(placeToEdit.toDo) {
+                await updateDoc(placeRef, {
+                    toDo: [
+                        ...placeToEdit.toDo,
+                        {...newToDo}
+                    ]
+                });
+            }
+            else {
+                await updateDoc(placeRef, {
+                    toDo: [
+                        {...newToDo}
+                    ]
+                });
+            }
         }
         catch(err) {
             console.error(err);
