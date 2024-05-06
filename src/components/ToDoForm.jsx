@@ -52,6 +52,10 @@ function ToDoForm({ isOpen, onClose, placeToEdit }) {
                 <ModalCloseButton />
                 <ModalBody>
                     <Stack spacing={6}>
+                    <FormControl>
+                            <FormLabel>Name</FormLabel>
+                            <Input type="text" onChange={(e) => setNewToDo({...newToDo, name: e.target.value})}/>
+                        </FormControl>
                         <FormControl>
                             <FormLabel>Description</FormLabel>
                             <Input type="text" onChange={(e) => setNewToDo({...newToDo, description: e.target.value})}/>

@@ -50,10 +50,16 @@ function Place() {
             await updateDoc(placeRef, {
                 toDo: place.toDo.filter(place => place.description != description)
             });
+            fetchPlace();
         }
         catch(err) {
             console.error(err);
         }
+    }
+
+    const placeEdited = () => {
+        onClose();
+		fetchPlace();
     }
 
 
@@ -72,7 +78,7 @@ function Place() {
                             src={place.image}
                             alt={place.name}
                         />
-                        <Heading as="h2" className="container heading">{place.name}</Heading>
+                        <Heading as="h2" size="2xl" className="container heading">{place.name}</Heading>
                     </Box>
                 </AspectRatio>
                 <Box className="container" my={10}>
@@ -96,9 +102,15 @@ function Place() {
                                 return (
                                     <Flex key={item.shortCode} role="group" alignItems="center">
                                         { item.link ?
-                                            <Link href={item.link} target="_blank">{item.description}</Link>
+                                            <>
+                                                <Link href={item.link} isExternal><Text fontSize="xl">{item.name}</Text></Link>
+                                                { item.description && <Text fontSize="xl">&nbsp;- {item.description}</Text> }
+                                            </>
                                         :
-                                            <Text>{item.description}</Text>
+                                            <>
+                                                <Text fontSize="xl">{item.name}</Text>
+                                                { item.description && <Text fontSize="xl">&nbsp;- {item.description}</Text> }
+                                            </>
                                         }
                                         <Icon
                                             as={FiTrash2}
@@ -119,7 +131,7 @@ function Place() {
                     }
                 </Box>
             </Box>
-            { isOpen && <ToDoForm isOpen={isOpen} onClose={onClose} placeToEdit={place}/> }
+            { isOpen && <ToDoForm isOpen={isOpen} onClose={placeEdited} placeToEdit={place}/> }
         </>
 	)
 }
