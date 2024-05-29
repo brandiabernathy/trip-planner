@@ -4,7 +4,7 @@ import { SimpleGrid, Link } from "@chakra-ui/react"
 function PlacesList({ places }) {
 
     let list = places.map(place=> {
-		return <Link key={place.id} href={"/place/" + place.shortCode}><PlaceCard place={place} /></Link>
+		return <Link key={place.id} href={"./place/" + place.shortCode}><PlaceCard place={place} /></Link>
 	});
 
     return (
