@@ -6,14 +6,27 @@ import {
 	Image,
 } from '@chakra-ui/react';
 import PlaceForm from './PlaceForm';
+import AuthForm from './AuthForm';
 import logo from '/atp-logo.svg';
+import { useAppContext } from '../context/app';
 
 function Header({ refreshPlaces }) {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { authed } = useAppContext();
+	const { isOpen: isAuthFormOpen, onOpen: onAuthFormOpen, onClose: onAuthFormClose } = useDisclosure();
+    const { isOpen: isPlaceFormOpen, onOpen: onPlaceFormOpen, onClose: onPlaceFormClose } = useDisclosure();
 
 	const placeAdded = () => {
-		onClose();
+		onPlaceFormClose();
 		refreshPlaces();
+	}
+
+	const showModal = () => {
+		if(authed) {
+			onPlaceFormOpen();
+		}
+		else {
+			onAuthFormOpen();
+		}
 	}
 
 	return (
@@ -23,10 +36,12 @@ function Header({ refreshPlaces }) {
 					<Image src={logo} boxSize="45px" mr={2}/>
 					<Heading as="h1">Abernathy Trip Planner</Heading>
 				</Link>
-				{ window.location.pathname === "/" && <Button onClick={onOpen}>Add New Place</Button> }
+				{ window.location.pathname === "/trip-planner/" && <Button onClick={showModal}>Add New Place</Button> }
 			</header>
 
-			{ isOpen && <PlaceForm isOpen={isOpen} onClose={placeAdded} isEdit={false}/> }
+			{ isAuthFormOpen && <AuthForm isOpen={isAuthFormOpen} onClose={onAuthFormClose} /> }
+
+			{ isPlaceFormOpen && <PlaceForm isOpen={isPlaceFormOpen} onClose={placeAdded} isEdit={false}/> }
 		</>
 	)
 }

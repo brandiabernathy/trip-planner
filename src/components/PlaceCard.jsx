@@ -13,8 +13,10 @@ import {
 
 import { FiEdit2 } from "react-icons/fi";
 import PlaceForm from './PlaceForm';
+import { useAppContext } from '../context/app';
 
 function PlaceCard({ place }) {
+	const { authed } = useAppContext();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	let tags;
@@ -33,7 +35,7 @@ function PlaceCard({ place }) {
 		<>
 			<Card role="group" height="100%">
 				<CardBody>
-					<Icon
+					{ authed && <Icon
 						as={FiEdit2}
 						onClick={editPlace}
 						position="absolute"
@@ -46,7 +48,7 @@ function PlaceCard({ place }) {
 						_groupHover={{
 							display: "block"
 					}}
-					/>
+					/> }
 					<AspectRatio ratio={4 / 3}>
 						<Image
 							src={place.image}

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
     Box,
     Image,
@@ -13,13 +13,15 @@ import {
     Stack,
 } from '@chakra-ui/react';
 import { db } from '../utils/firebase/config';
-import { getDocs, collection, query, where, doc, updateDoc } from "firebase/firestore";
-import { FiPlusSquare, FiTrash2 } from "react-icons/fi";
+import { getDocs, collection, query, where, doc, updateDoc } from 'firebase/firestore';
+import { FiPlusSquare, FiTrash2 } from 'react-icons/fi';
+import { useAppContext } from '../context/app';
 
 import Header from '../components/Header';
 import ToDoForm from '../components/ToDoForm';
 
 function Place() {
+    const { authed } = useAppContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { shortCode } = useParams();
     const [ place, setPlace ] = useState({});
@@ -84,7 +86,7 @@ function Place() {
                 <Box className="container" my={10}>
                     <Flex role="group" alignItems="center"  mb={4}>
                         <Heading as="h3">Things To Do</Heading>
-                        <Icon
+                        { authed && <Icon
                             as={FiPlusSquare}
                             onClick={onOpen}
                             boxSize={8}
@@ -94,7 +96,7 @@ function Place() {
                             _groupHover={{
                                 display: "block"
                             }}
-                        />
+                        /> }
                     </Flex>
                     { place.toDo && place.toDo.length ?
                         <Stack>
@@ -112,7 +114,7 @@ function Place() {
                                                 { item.description && <Text fontSize="xl">&nbsp;- {item.description}</Text> }
                                             </>
                                         }
-                                        <Icon
+                                        { authed && <Icon
                                             as={FiTrash2}
                                             onClick={() => deleteToDo(item.description)}
                                             display="none"
@@ -121,7 +123,7 @@ function Place() {
                                             _groupHover={{
                                                 display: "block"
                                             }}
-                                        />
+                                        /> }
                                     </Flex>
                                 )
                             })}
