@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { db } from '../utils/firebase/config';
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection } from 'firebase/firestore';
 import { Box } from '@chakra-ui/react';
 import Header from '../components/Header';
 import PlacesList from '../components/PlacesList';
-import { useAppContext } from '../context/app';
 
 function Index() {
-	const { authed } = useAppContext();
 	const [ places, setPlaces ] = useState([]);
 
 	const fetchPlaces = async () => {
@@ -25,7 +23,6 @@ function Index() {
     };
 
     useEffect(() => {
-		console.log('authed', authed);
         fetchPlaces();
     }, []);
 

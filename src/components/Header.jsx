@@ -32,7 +32,7 @@ function Header({ refreshPlaces }) {
 	return (
 		<>
 			<header className="container header">
-				<Link href="/" display="flex" alignItems="center">
+				<Link href="./" display="flex" alignItems="center">
 					<Image src={logo} boxSize="45px" mr={2}/>
 					<Heading as="h1">Abernathy Trip Planner</Heading>
 				</Link>

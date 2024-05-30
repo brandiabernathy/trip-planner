@@ -14,7 +14,7 @@ import {
 	Stack,
 } from '@chakra-ui/react';
 import { db } from '../utils/firebase/config';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from 'firebase/firestore';
 
 function ToDoForm({ isOpen, onClose, placeToEdit }) {
     const [ newToDo, setNewToDo ] = useState({});

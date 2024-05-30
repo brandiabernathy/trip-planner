@@ -12,7 +12,6 @@ function App() {
 		//see if a user is already signed in
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-                console.log("user", user);
                 setAuthed(true);
 			}
 		});
