@@ -1,10 +1,11 @@
 import PlaceCard from './PlaceCard';
-import { SimpleGrid, Link } from "@chakra-ui/react"
+import { SimpleGrid } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 function PlacesList({ places }) {
 
     let list = places.map(place=> {
-		return <Link key={place.id} href={"./place/" + place.shortCode}><PlaceCard place={place} /></Link>
+		return <Link key={place.id} to={"/" + place.shortCode}><PlaceCard place={place} /></Link>
 	});
 
     return (

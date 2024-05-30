@@ -15,7 +15,7 @@ export default function Router() {
         }>
             <Routes>
                 <Route exact path="/" end element={<Index />} />
-                <Route path="/place/:shortCode" element={<Place />} />
+                <Route path="/:shortCode" element={<Place />} />
             </Routes>
         </Suspense>
       );
