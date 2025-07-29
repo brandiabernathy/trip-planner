@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { db } from '../utils/firebase/config';
 import { getDocs, collection } from 'firebase/firestore';
-import { Box } from '@chakra-ui/react';
+import { Box, Stack, Text } from '@chakra-ui/react';
 import Header from '../components/Header';
 import PlacesList from '../components/PlacesList';
 
 function Index() {
-	const [ places, setPlaces ] = useState([]);
+	const [taken, setTaken] = useState([]);
+	const [ideas, setIdeas] = useState([]);
 
 	const fetchPlaces = async () => {
         try {
@@ -15,7 +16,9 @@ function Index() {
 				...doc.data(),
 				id: doc.id,
 			})))
-            setPlaces(placesData);
+            setIdeas(placesData.filter(trip => !trip.taken));
+			setTaken(placesData.filter(trip => trip.taken == true));
+			console.log('placedata', placesData);
 		}
 		catch(err) {
 			console.error(err);
@@ -29,7 +32,12 @@ function Index() {
 	return (
 		<Box>
 			<Header refreshPlaces={fetchPlaces}/>
-			<PlacesList places={places}/>
+			<Stack className="container">
+				<Text fontWeight="bold" fontSize="2xl">Trip ideas</Text>
+				<PlacesList places={ideas}/>
+				<Text fontWeight="bold" fontSize="2xl">Trips taken</Text>
+				<PlacesList places={taken}/>
+			</Stack>
 		</Box>
 	)
 }

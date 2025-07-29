@@ -9,7 +9,7 @@ function PlacesList({ places }) {
 	});
 
     return (
-        <SimpleGrid className="container" spacing={6} templateColumns='repeat(4,minmax(0,1fr))' mb={20}>
+        <SimpleGrid spacing={6} templateColumns='repeat(4,minmax(0,1fr))' mb={20}>
             { places.length > 0 &&
                 <>
                     { list }

@@ -59,9 +59,9 @@ function PlaceCard({ place }) {
 					</AspectRatio>
 					<Stack m="4" spacing="3">
 						<Heading size="md">{place.name}</Heading>
-						<Box m={-1}>
+						{/* <Box m={-1}>
 							{tags && tags}
-						</Box>
+						</Box> */}
 					</Stack>
 				</CardBody>
 			</Card>
